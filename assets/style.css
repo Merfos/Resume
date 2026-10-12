@@ -1,0 +1,231 @@
+/* ---------- Tokens ---------- */
+:root {
+  --bg: #ffffff;
+  --ink: #1a1815;
+  --muted: #8a857d;
+  --faint: #b7b2aa;
+  --line: #efebe5;
+  --soft: #6b665e;
+  --accent: #4a7c59;
+  --cream: #f5f3e9;
+
+  --serif: "Crimson Pro", Georgia, serif;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --radius: 4px;
+  --bar-h: 70px;
+  --side-w: clamp(240px, 22vw, 312px);
+  --gap: 32px;
+  --edge: 20px;
+  --max: 1712px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.55 var(--sans);
+  letter-spacing: -0.02em;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; }
+
+/* ---------- Intro screen ---------- */
+.intro { position: relative; height: 100dvh; background: var(--cream); }
+.intro__stage { position: sticky; top: 0; height: 100dvh; overflow: hidden; }
+.intro__wash {
+  position: absolute; inset: -20%;
+  background:
+    radial-gradient(40% 35% at 30% 30%, #e8e2cc 0%, transparent 70%),
+    radial-gradient(35% 40% at 70% 65%, #dfe6d6 0%, transparent 70%),
+    radial-gradient(30% 30% at 60% 20%, #efe6d8 0%, transparent 70%);
+  filter: blur(20px);
+  animation: drift 18s ease-in-out infinite alternate;
+}
+.intro__stage::after {           /* fine grain */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  opacity: .45; mix-blend-mode: multiply;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23g)' opacity='.12'/%3E%3C/svg%3E");
+}
+@keyframes drift {
+  from { transform: translate3d(-3%, -2%, 0) rotate(0deg); }
+  to   { transform: translate3d(3%, 2%, 0) rotate(6deg); }
+}
+
+.intro__mark {
+  --size: clamp(7rem, 10vw, 10rem);
+  position: absolute; z-index: 2; top: 50%; left: 50%;
+  width: var(--size); aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  transition: transform .3s cubic-bezier(.2, .7, .2, 1);
+}
+.intro__mark:hover { transform: translate(-50%, -50%) scale(1.04); }
+.intro__mark:focus-visible { outline: 2px solid var(--ink); outline-offset: 12px; border-radius: 8px; }
+.intro__mark span {
+  position: absolute; inset: 0;
+  -webkit-mask: url("mark.svg") center / contain no-repeat;
+          mask: url("mark.svg") center / contain no-repeat;
+}
+.intro__mark-base { background: #fff; }
+.intro__mark-ink {
+  background: linear-gradient(to top, #222321 var(--fill, 0%), transparent var(--fill, 0%));
+}
+@media (max-width: 700px) { .intro__mark { --size: clamp(6.5rem, 28vw, 8rem); } }
+
+.no-intro .intro { display: none; }
+body.in-intro .topbar { opacity: 0; pointer-events: none; }
+.no-intro body.in-intro .topbar { opacity: 1; pointer-events: auto; }
+
+/* ---------- Top bar ---------- */
+.topbar {
+  position: fixed; inset: 0 0 auto; z-index: 40;
+  height: var(--bar-h);
+  background: var(--bg);
+  transition: opacity .4s ease;
+}
+.topbar__inner {
+  display: flex; align-items: flex-start;
+  max-width: var(--max); margin: 0 auto;
+  padding: 28px var(--edge) 0;
+}
+.logo { display: inline-flex; width: 30px; height: 30px; }
+.logo img { width: 100%; height: 100%; }
+.clock {
+  margin: 0 0 0 auto;
+  font-size: 13px; line-height: 30px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Page shell ---------- */
+.page {
+  display: grid;
+  grid-template-columns: var(--side-w) minmax(0, 1fr);
+  gap: var(--gap);
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: var(--bar-h) var(--edge) 0;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+  position: sticky; top: calc(var(--bar-h) + 12px); align-self: start;
+  display: flex; flex-direction: column; gap: 24px;
+}
+.brand h1 {
+  margin: 0 0 8px;
+  font: 300 34px/1.05 var(--serif);
+  letter-spacing: -0.01em;
+}
+.brand .role { margin: 0 0 12px; font-size: 14px; line-height: 1.35; color: var(--muted); }
+.brand .pov { margin: 0; font-size: 13.5px; font-weight: 300; color: var(--soft); }
+.rule { width: 100%; margin: 2px 0 0; border: 0; border-top: 1px solid var(--line); }
+
+.nav-group + .nav-group { margin-top: 22px; }
+.nav-label {
+  margin: 0 0 10px;
+  font-size: 11px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--faint);
+}
+.nav-list { margin: 0; padding: 0; list-style: none; }
+.nav-list li { margin: 3px 0; }
+.nav-list a {
+  display: grid; grid-template-columns: 26px 1fr auto; align-items: baseline; gap: 2px;
+  padding: 1px 0;
+  font-size: 13px; color: var(--muted);
+  transition: color .15s ease;
+}
+.nav-list .num { font-variant-numeric: tabular-nums; }
+.nav-list .arr { width: 16px; text-align: right; font-size: 15px; transition: transform .15s ease; }
+.nav-list .arr.ext { font-size: 13px; }
+.nav-list a:hover { color: var(--ink); }
+.nav-list a:hover .arr { transform: translateX(2px); }
+.nav-list a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: var(--radius); }
+
+/* ---------- Work grid (two-column masonry) ---------- */
+.content { min-width: 0; }
+.work, .section { scroll-margin-top: calc(var(--bar-h) + 12px); }
+.work { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+.col { display: flex; flex-direction: column; gap: 26px; }
+
+.card { display: block; border-radius: var(--radius); }
+.card:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+.thumb {
+  position: relative; overflow: hidden;
+  aspect-ratio: var(--ratio, 13 / 10);
+  background: var(--ph, #eee);
+}
+.thumb img, .thumb video {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform .5s ease;
+}
+.card:hover .thumb img, .card:hover .thumb video { transform: scale(1.015); }
+
+/* tags appear in the thumbnail's top-right corner on hover / focus */
+.pills {
+  position: absolute; top: 14px; right: 14px; left: 14px; z-index: 1;
+  display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px;
+  pointer-events: none;
+  opacity: 0; transform: translateY(-6px);
+  transition: opacity .22s ease, transform .22s ease;
+}
+.pills span {
+  padding: 7px 12px; border-radius: 999px;
+  font-size: 13px; line-height: 1; white-space: nowrap; color: var(--ink);
+  background: rgba(255, 255, 255, .92);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .08), 0 2px 8px rgba(0, 0, 0, .1);
+  backdrop-filter: blur(6px);
+}
+.card:hover .pills, .card:focus-visible .pills { opacity: 1; transform: none; }
+@media (hover: none) { .pills { opacity: 1; transform: none; } }
+
+.meta { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-top: 14px; }
+.meta .title { font-size: 15px; line-height: 1.4; }
+.meta .year { flex: none; font-size: 14px; color: var(--soft); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* ---------- Secondary sections ---------- */
+.section { margin-top: 0; }
+.section h2 { margin: 0 0 14px; font: 400 28px/1.2 var(--serif); letter-spacing: normal; }
+.note { max-width: 46em; color: var(--muted); }
+
+/* ---------- Footer ---------- */
+.page-footer {
+  grid-column: 1 / -1;
+  min-height: 75px; margin-top: 130px; padding: 10px 0;
+  font: 11px var(--mono); letter-spacing: normal; color: var(--faint);
+}
+
+/* ---------- Email copied toast ---------- */
+.toast {
+  position: fixed; left: 50%; bottom: 28px; z-index: 50;
+  padding: 8px 14px; border-radius: 999px;
+  font-size: 13px; color: #fff; background: var(--ink);
+  transform: translate(-50%, 12px); opacity: 0;
+  transition: opacity .2s ease, transform .2s ease;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  :root { --bar-h: 62px; }
+  .topbar__inner { padding: 22px 22px 0; }
+  .page { grid-template-columns: 1fr; gap: 40px; padding: var(--bar-h) 22px 0; }
+  .sidebar { position: static; }
+}
+@media (max-width: 600px) {
+  .work { grid-template-columns: 1fr; }
+  .col { gap: 30px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  :root { --fill: 100%; }
+  .intro__wash { animation: none; }
+  .pills, .thumb img, .thumb video { transition: none; }
+}

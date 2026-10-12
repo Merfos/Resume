@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Me — Your Name</title>
+  <meta name="description" content="Portfolio of Your Name: selected work, play and contact." />
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;1,300&family=IBM+Plex+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+  <!-- Fixed top bar: monogram (left), local time (right) -->
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a class="logo" href="index.html" aria-label="Home"><img src="assets/mark.svg" alt="" /></a>
+      <p class="clock" id="clock" aria-label="Local time"></p>
+    </div>
+  </header>
+
+  <div class="page">
+    <aside class="sidebar">
+      <div class="brand">
+        <h1>Your Name</h1>
+        <p class="role">Your role, in one line</p>
+        <p class="pov">One sentence about what you focus on and the point of view you bring to the work.</p>
+      </div>
+
+      <hr class="rule" />
+
+      <nav aria-label="Sections">
+        <div class="nav-group">
+          <p class="nav-label">Sections</p>
+          <ul class="nav-list">
+            <li><a href="index.html#work"><span class="num">01.</span><span>Work</span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+            <li><a href="play.html"><span class="num">02.</span><span>Play</span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+            <li><a href="about.html"><span class="num">03.</span><span>About Me</span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+          </ul>
+        </div>
+        <div class="nav-group">
+          <p class="nav-label">Links</p>
+          <ul class="nav-list">
+            <li><a href="mailto:you@example.com" class="js-copy-email" data-email="you@example.com"><span class="num">04.</span><span class="label">Email</span><span class="arr ext" aria-hidden="true">&nearr;</span></a></li>
+            <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener"><span class="num">05.</span><span>LinkedIn</span><span class="arr ext" aria-hidden="true">&nearr;</span></a></li>
+            <li><a href="https://github.com/merfos" target="_blank" rel="noopener"><span class="num">06.</span><span>GitHub</span><span class="arr ext" aria-hidden="true">&nearr;</span></a></li>
+            <li><a href="#" target="_blank" rel="noopener"><span class="num">07.</span><span>Resume</span><span class="arr ext" aria-hidden="true">&nearr;</span></a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <section class="section">
+        <h2>About Me</h2>
+        <p class="note">A short bio goes here.</p>
+      </section>
+    </main>
+
+    <footer class="page-footer">&copy;<span id="year"></span> Designed and coded by Your Name</footer>
+  </div>
+  <script>const PROJECTS = [];</script>
+  <script src="assets/main.js"></script>
+</body>
+</html>
